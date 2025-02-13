@@ -4,6 +4,7 @@ import path from "node:path";
 
 export const currentPath = process.cwd();
 
+// TODO: fix -ap returning cwd instead of user input
 
 export async function getFileList({
   directoryPath = currentPath,
