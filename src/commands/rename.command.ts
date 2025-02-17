@@ -1,10 +1,14 @@
 import { ArgumentsCamelCase, Argv, CommandModule } from "yargs";
+import { getFileList, currentPath } from "../utils.js";
 
 const operationTypes = ["append", "replace"] as const;
 type OperationTypes = typeof operationTypes[number];
 
 type RenameOptions = {
   pattern: string;
+  preview: boolean;
+  path: string;
+  "auto-rename": boolean;
 };
 
 export const renameCommand: CommandModule<{}, RenameOptions> = {
@@ -17,7 +21,26 @@ export const renameCommand: CommandModule<{}, RenameOptions> = {
         describe: "pattern based on which the files are renamed",
         type: "string",
         demandOption: true
+      })
+      .option("preview", {
+        alias: "P",
+        type: "boolean",
+        desc: "preview the changes without renaming the files",
+        default: false
+      })
+      .option("path", {
+        alias: "p",
+        type: "string",
+        desc: "use custom path",
+        default: currentPath
+      })
+      .option("auto-rename", {
+        alias: "a",
+        type: "boolean",
+        desc: "Auto-rename the files if any conflicts are present",
+        default: false
       });
+
   },
   handler: async (argv: ArgumentsCamelCase<RenameOptions>) => {
     // TODO extract <#> and * from pattern, * is old filename and <#> is the counter
