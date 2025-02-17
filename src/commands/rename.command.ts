@@ -26,5 +26,6 @@ export const renameCommand: CommandModule<{}, RenameOptions> = {
     // TODO if no conflicts, rename
     // TODO show result without renaming with --preview
     // TODO add flag for changing numbering order (by name, by date created, by date modified etc)
+    // TODO add flag to automatically rename the file if there are conflicts
   }
 };

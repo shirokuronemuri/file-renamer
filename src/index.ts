@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import yargs from "yargs";
+import yargs, { CommandModule } from "yargs";
 import { hideBin } from "yargs/helpers";
 import commands from "./commands/index.js";
 
@@ -8,8 +8,8 @@ const cli = yargs(hideBin(process.argv))
   .strict()
   .help();
 
-commands.forEach(command => cli.command(command));
+
+// either cast to CommandModule<{}, any> or create an inferred type that knows all the possible command option types (when you learn how to do that)
+commands.forEach(command => cli.command(command as CommandModule<{}, any>));
 
 cli.parse();
-
-// TODO preview changes before renaming
